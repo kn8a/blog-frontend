@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import Main from "./pages/Main";
+import Post from "./pages/Post";
+import {ToastContainer} from 'react-toastify'
 
 
 function App() {
@@ -7,9 +11,15 @@ function App() {
   
 
   return (
-    <div className="App">
-      
-    </div>
+    <>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Main/>} />
+        <Route path='/post/:postId' element={<Post/>} />
+      </Routes>
+    </Router>
+    <ToastContainer/>
+    </>
   );
 }
 
