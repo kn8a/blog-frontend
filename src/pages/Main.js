@@ -5,30 +5,34 @@ import Spinner from '../components/Spinner'
 
 function Main() {
 
-    const [isLoading, setIsLoading] = useState(false)
+  const baseURL = 'https://kn8a-blog-api.herokuapp.com/api/posts'
 
-    const posts = () => {
-      setIsLoading(true)
-      axios.get('https://kn8a-blog-api.herokuapp.com/api/posts')
-        .then(function (response) {
-          
-          return response;
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .then(function () {
-          setIsLoading(false)
-        });
-        }
-  
-    if (isLoading) {
-      return <Spinner/>
-    }
+  const [posts, setPosts] = useState(null);
+
+
+  useEffect(() => {
+    axios.get(`${baseURL}`).then((response) => {
+      setPosts(response.data);
+
+    });
+  }, []);
+
+  if (!posts) return <Spinner/>
+  console.log(posts)
+
     
   return (
-    <div>main</div>
+    <div>
+      {posts.map(post => {
+        return (
+          <div>
+          <h3>{post.title}</h3>
+          <p>{post.createdAt}</p>
+          </div>
+        )
+
+      })}
+    </div>
   )
 }
 
