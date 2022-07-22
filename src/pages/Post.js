@@ -36,6 +36,22 @@ function Post(props) {
         <p>{post.content}</p>
         <p>Likes: {post.likes} Comments: {post.comments}</p>
         
+        <textarea name='comment'></textarea>
+        <input name='author'></input>
+        <input name='email'></input>
+        <button>Submit</button>
+
+        <div>
+            {comments.map(comment => {
+                return (
+                    <div>
+                    <p>{comment.comment}</p>
+                    <p>Posted by {comment.author} on {DateTime.fromISO(comment.createdAt).toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}</p>
+                    
+                    </div>
+                )
+            })}
+        </div>
     </div>
 
   )
