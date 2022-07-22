@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
+import { DateTime } from 'luxon';
 
 function Post(props) {
 
@@ -29,7 +30,14 @@ function Post(props) {
 
 
   return (
-    <div>Post</div>
+    <div>
+        <h1>{post.title}</h1>
+        <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</p>
+        <p>{post.content}</p>
+        <p>Likes: {post.likes} Comments: {post.comments}</p>
+        
+    </div>
+
   )
 }
 
