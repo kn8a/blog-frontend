@@ -2,6 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Spinner from '../components/Spinner'
+const { DateTime } = require("luxon");
+
 
 function Main() {
 
@@ -24,10 +26,11 @@ function Main() {
   return (
     <div>
       {posts.map(post => {
+        const id= '/posts/' + post._id
         return (
           <div>
-          <h3>{post.title}</h3>
-          <p>{post.createdAt}</p>
+          <h3><a href={id}>{post.title}</a></h3>
+          <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</p>
           </div>
         )
 
