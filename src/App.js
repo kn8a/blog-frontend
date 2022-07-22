@@ -15,7 +15,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<Main/>} />
-        <Route path='/post/:postId' element={<Post/>} />
+        <Route path='/posts/:postId' exact element={<Post/>} />
       </Routes>
     </Router>
     <ToastContainer/>

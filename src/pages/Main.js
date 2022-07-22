@@ -2,7 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Spinner from '../components/Spinner'
-const { DateTime } = require("luxon");
+import { DateTime } from "luxon";
+import { Link } from 'react-router-dom';
 
 
 function Main() {
@@ -29,7 +30,7 @@ function Main() {
         const id= '/posts/' + post._id
         return (
           <div>
-          <h3><a href={id}>{post.title}</a></h3>
+          <Link to={id}><h3>{post.title}</h3></Link>
           <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</p>
           </div>
         )
