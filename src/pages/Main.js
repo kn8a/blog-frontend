@@ -13,6 +13,7 @@ function Main() {
   const [posts, setPosts] = useState(null);
 
 
+
   useEffect(() => {
     axios.get(`${baseURL}`).then((response) => {
       setPosts(response.data);
