@@ -13,21 +13,56 @@ function Post(props) {
 
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState(null)
+  const [newComment, setNewComment] = useState({
+    comment: '',
+    name: '',
+    email: '',
+    submitted:'false'
+  })
+
 
 
   useEffect(() => {
     axios.get(`${postURL}`).then((response) => {
       setPost(response.data);
     });
+  },[]);
+
+  useEffect(()=>{
     axios.get(`${commentsURL}`).then((response) => {
-        setComments(response.data);
-      });
-  }, []);
+      setComments(response.data);
+    });
+  },[])
 
 
   if (!post || !comments) return <Spinner/>
   console.log(post, comments)
 
+
+  const onFormEntry = (e) => {
+    const value = e.target.value
+    setNewComment({
+      ...newComment,
+      [e.target.name]: value
+  });
+  }
+
+  const commentSubmit = (e) => {
+    e.preventDefault()
+    axios.post(`${commentsURL}`, newComment)
+    .then(()=>{
+      console.log('comment submitted')
+      setNewComment({
+        comment: '',
+        name: '',
+        email: '',
+      })
+      axios.get(`${commentsURL}`).then((response) => {
+        setComments(response.data);
+      });
+    })
+    .catch(console.log('submission failed'))
+  }
 
   return (
     <div>
@@ -35,11 +70,14 @@ function Post(props) {
         <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</p>
         <p>{post.content}</p>
         <p>Likes: {post.likes} Comments: {post.comments}</p>
+        <form onSubmit={commentSubmit}>
+          <textarea name='comment' onChange={onFormEntry} value={newComment.comment}></textarea>
+          <input name='name' onChange={onFormEntry} value={newComment.name}></input>
+          <input name='email' onChange={onFormEntry} value={newComment.email}></input>
+          <button type='submit'>Submit</button>
+        </form>
         
-        <textarea name='comment'></textarea>
-        <input name='author'></input>
-        <input name='email'></input>
-        <button>Submit</button>
+        
 
         <div>
             {comments.map(comment => {
