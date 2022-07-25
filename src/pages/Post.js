@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { DateTime } from 'luxon';
+import { toast } from 'react-toastify'
 
 function Post(props) {
 
@@ -51,6 +52,7 @@ function Post(props) {
         name: '',
         email: '',
       })
+      toast.success('New comment submitted')
       axios.get(`${commentsURL}`).then((response) => {
         setComments(response.data);
       });
@@ -75,7 +77,7 @@ function Post(props) {
                     <div>
                     <p>{comment.comment}</p>
                     <p>Posted by {comment.author} on {DateTime.fromISO(comment.createdAt).toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}</p>
-                    
+
                     </div>
                 )
             })}
