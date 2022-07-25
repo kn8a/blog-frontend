@@ -9,22 +9,17 @@ import { Link } from 'react-router-dom';
 function Main() {
 
   const baseURL = 'https://kn8a-blog-api.herokuapp.com/api/posts'
-
   const [posts, setPosts] = useState(null);
-
-
 
   useEffect(() => {
     axios.get(`${baseURL}`).then((response) => {
       setPosts(response.data);
-
     });
   }, []);
 
   if (!posts) return <Spinner/>
   console.log(posts)
 
-    
   return (
     <div>
       {posts.map(post => {

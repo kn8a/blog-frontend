@@ -20,8 +20,6 @@ function Post(props) {
     submitted:'false'
   })
 
-
-
   useEffect(() => {
     axios.get(`${postURL}`).then((response) => {
       setPost(response.data);
@@ -34,9 +32,7 @@ function Post(props) {
     });
   },[])
 
-
   if (!post || !comments) return <Spinner/>
-
 
   const onFormEntry = (e) => {
     const value = e.target.value
@@ -67,15 +63,12 @@ function Post(props) {
         <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</p>
         <p>{post.content}</p>
         <p>Likes: {post.likes} Comments: {post.comments}</p>
-        <form onSubmit={commentSubmit}>
-          <textarea name='comment' onChange={onFormEntry} value={newComment.comment}></textarea>
-          <input name='name' onChange={onFormEntry} value={newComment.name}></input>
-          <input name='email' onChange={onFormEntry} value={newComment.email}></input>
-          <button type='submit'>Submit</button>
-        </form>
-        
-        
-
+          <form onSubmit={commentSubmit}>
+            <textarea name='comment' onChange={onFormEntry} value={newComment.comment}></textarea>
+            <input name='name' onChange={onFormEntry} value={newComment.name}></input>
+            <input name='email' onChange={onFormEntry} value={newComment.email}></input>
+            <button type='submit'>Submit</button>
+          </form>
         <div>
             {comments.map(comment => {
                 return (
