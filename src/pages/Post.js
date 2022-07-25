@@ -36,7 +36,6 @@ function Post(props) {
 
 
   if (!post || !comments) return <Spinner/>
-  console.log(post, comments)
 
 
   const onFormEntry = (e) => {
@@ -51,7 +50,6 @@ function Post(props) {
     e.preventDefault()
     axios.post(`${commentsURL}`, newComment)
     .then(()=>{
-      console.log('comment submitted')
       setNewComment({
         comment: '',
         name: '',
@@ -61,7 +59,6 @@ function Post(props) {
         setComments(response.data);
       });
     })
-    .catch(console.log('submission failed'))
   }
 
   return (
