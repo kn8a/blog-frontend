@@ -5,10 +5,13 @@ import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { DateTime } from 'luxon';
 import { toast } from 'react-toastify'
+import { useNavigate} from 'react-router-dom';
+
 
 function Post(props) {
 
   const params = useParams()
+  const navigate = useNavigate()
   const postURL = `https://kn8a-blog-api.herokuapp.com/api/posts/${params.postId}`
   const commentsURL = `https://kn8a-blog-api.herokuapp.com/api/posts/${params.postId}/comments`
 
@@ -60,21 +63,55 @@ function Post(props) {
   }
 
   return (
-    <div>
-        <h1>{post.title}</h1>
-        <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</p>
-        <p>{post.content}</p>
-        <p>Likes: {post.likes} Comments: {post.comments}</p>
-          <form onSubmit={commentSubmit}>
-            <textarea name='comment' onChange={onFormEntry} value={newComment.comment}></textarea>
-            <input name='name' onChange={onFormEntry} value={newComment.name}></input>
-            <input name='email' onChange={onFormEntry} value={newComment.email}></input>
-            <button type='submit'>Submit</button>
+    <div className='container is-max-desktop'>
+      <div className='block'></div>
+      <div className='block'>
+          <div class="field">
+                  <button type='button'  onClick={()=>navigate('/')} className="button is-info is-rounded">{'<- '}Back to all posts</button>
+                </div>
+          </div>
+      <div className='block'></div>
+        <div className='content box'>
+        <h1 className='title is-3'>{post.title}</h1>
+        <div className='content'>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</div>
+          <p>{post.content}</p>
+          <p>Likes: {post.likes} Comments: {post.comments}</p>
+        </div>
+        
+          <form onSubmit={commentSubmit} className="block box">
+          <div className='field'>
+          <label className="label">New comment:</label>
+            <textarea className='textarea' required name='comment' placeholder='Enter your comment here' onChange={onFormEntry} value={newComment.comment}></textarea>
+          </div>
+          <div class="field is-grouped">
+          <div class="control">
+              <label className="label">Name (required):</label>
+              
+            </div>
+            <div class="control">
+              <input name='name' placeholder='Enter your name' required className='input' onChange={onFormEntry} value={newComment.name}></input>
+            </div>
+            <div class="control">
+            <label className="label">Email (Optional):</label>
+            </div>
+            <div class="control">
+            
+              <input name='email' placeholder='Optional email' className='input' onChange={onFormEntry} value={newComment.email}></input>
+            </div>
+            <div class="control">
+              
+              <button className='button is-success is-rounded' type='submit'>Submit</button>
+            </div>
+          </div>
+            
+            
+            
           </form>
-        <div>
+        <div className='block box'>
+          <h3 className='title is-5'>Comments:</h3>
             {comments.map(comment => {
                 return (
-                    <div>
+                    <div className='notification '>
                     <p>{comment.comment}</p>
                     <p>Posted by {comment.author} on {DateTime.fromISO(comment.createdAt).toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}</p>
 
