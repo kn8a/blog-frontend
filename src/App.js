@@ -12,7 +12,7 @@ function App() {
   
 
   return (
-    <>
+    <div className='container is-max-desktop'>
     <Router>
       <Routes>
         <Route path='/' element={<Main/>} />
@@ -20,7 +20,7 @@ function App() {
       </Routes>
     </Router>
     <ToastContainer/>
-    </>
+    </div>
   );
 }
 

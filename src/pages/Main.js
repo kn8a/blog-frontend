@@ -21,17 +21,31 @@ function Main() {
   console.log(posts)
 
   return (
-    <div>
-      {posts.map(post => {
+    <div className='container is-max-desktop'>
+      <div className='block'></div>
+
+    <div className="box">
+    {posts.map(post => {
         const id= '/posts/' + post._id
         return (
-          <div>
-          <Link to={id}><h3>{post.title}</h3></Link>
-          <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</p>
-          </div>
+          
+            <div className='box'>
+            
+              <h3 className='title is-4'><Link to={id}>{post.title}</Link></h3>
+              <p className='block'>{post.content.substring(0, 100)}...</p>
+              <footer class="card-footer">
+                <p className='card-footer-item'>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</p>
+                <p className='card-footer-item'>Likes: {post.likes}</p>
+                <p className='card-footer-item'>Comments: {post.comments}</p>
+              </footer>
+            </div>
+            
+          
         )
 
       })}
+    </div>
+      
     </div>
   )
 }
